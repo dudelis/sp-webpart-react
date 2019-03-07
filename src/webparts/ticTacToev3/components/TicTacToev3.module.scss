@@ -70,5 +70,25 @@
       vertical-align: top;
       display: inline-block;
     }
+
+  }
+
+  .gridCont {
+    background-color: #c0c0c0;
+
+  }
+  .rowCont{
+    display: table;
+    width: 100%;
+  }
+  .squareCont {
+    display: table-cell;
+    vertical-align: middle;
+    min-height: 100px;
+    text-align: center;
+    border: solid 1px #000;
+    box-sizing: border-box;
+    line-height: 100px;
+    
   }
 }
