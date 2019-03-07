@@ -7,8 +7,8 @@ import { escape } from '@microsoft/sp-lodash-subset';
 export class Square extends React.Component<any, any>{
   render(){
     return(
-      <div className={`ms-Grid-col ms-u-sm4 ms-u-md4 ${ styles.squareCont }`}>
-        Hello from Square
+      <div className={`ms-Grid-col ms-u-sm4 ms-u-md4 ${ styles.squareCont }`} onClick={() => this.props.onSquareClick(this.props.index)}>
+        {this.props.value}
       </div>
     );
   }
@@ -16,12 +16,28 @@ export class Square extends React.Component<any, any>{
 
 
 export class Board extends React.Component<any, any>{
-  private renderRow(){
+
+  constructor(props){
+    super(props);
+    var initialVals = [ 'O1','X2', 'O3',
+                        'O4','X5', 'O6',
+                        'O7','X8', 'O9'];
+    
+    this.state = {values: initialVals}
+  }
+
+  handleSqueareClick = (index) => {
+    console.log('key', index);
+  }
+
+  private renderRow(startIndex:number, endIndex:number){
+
+
     return(
       <div className={`ms-Grid-row ${styles.rowCont}`}>
-        <Square />
-        <Square />
-        <Square />
+      {this.state.values.map((value, key) => {
+        return key >= startIndex && key <= endIndex ? <Square onSquareClick={this.handleSqueareClick} value={value} index={key} key={key}/> : null; 
+      })}
       </div>
     );
   }
@@ -31,9 +47,9 @@ export class Board extends React.Component<any, any>{
     return(
       <div className={ `ms-Grid ${styles.gridCont}`}>
         
-        {this.renderRow()}
-        {this.renderRow()}
-        {this.renderRow()}
+        {this.renderRow(0, 2)}
+        {this.renderRow(3, 5)}
+        {this.renderRow(6, 8)}
       </div>
     );
   }
