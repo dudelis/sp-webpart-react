@@ -7,19 +7,19 @@ import {
   PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
 
-import * as strings from 'TicTacToev3WebPartStrings';
-import TicTacToev3 from './components/TicTacToev3';
-import { ITicTacToev3Props } from './components/ITicTacToev3Props';
+import * as strings from 'K2WorklistWebPartStrings';
+import K2Worklist from './components/K2Worklist';
+import { IK2WorklistProps } from './components/IK2WorklistProps';
 
-export interface ITicTacToev3WebPartProps {
+export interface IIK2WorklistWebPartProps {
   description: string;
 }
 
-export default class TicTacToev3WebPart extends BaseClientSideWebPart<ITicTacToev3WebPartProps> {
+export default class TicTacToev3WebPart extends BaseClientSideWebPart<IIK2WorklistWebPartProps> {
 
   public render(): void {
-    const element: React.ReactElement<ITicTacToev3Props > = React.createElement(
-      TicTacToev3,
+    const element: React.ReactElement<IK2WorklistProps > = React.createElement(
+      K2Worklist,
       {
         description: this.properties.description
       }
