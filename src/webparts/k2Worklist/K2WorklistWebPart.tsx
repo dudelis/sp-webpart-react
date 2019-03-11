@@ -6,16 +6,26 @@ import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware, compose} from 'redux';
+import thunk from 'redux-thunk';
 
 import * as strings from 'K2WorklistWebPartStrings';
 import K2Worklist from './components/K2Worklist';
 import { IK2WorklistProps } from './components/IK2WorklistProps';
+import reducers from './reducers';
 
 export interface IIK2WorklistWebPartProps {
   description: string;
   k2url: string;
   context: any;
 }
+
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
+const store = createStore(
+    reducers,
+    composeEnhancers(applyMiddleware(thunk))
+);
 
 export default class TicTacToev3WebPart extends BaseClientSideWebPart<IIK2WorklistWebPartProps> {
 
@@ -29,7 +39,7 @@ export default class TicTacToev3WebPart extends BaseClientSideWebPart<IIK2Workli
       }
     );
 
-    ReactDom.render(element, this.domElement);
+    ReactDom.render(<Provider store={store}>element</Provider>, this.domElement);
   }
 
   protected onDispose(): void {
