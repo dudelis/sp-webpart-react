@@ -5,37 +5,29 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import { DetailsList, DetailsListLayoutMode, Selection, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
+import { AadHttpClient, HttpClientResponse } from '@microsoft/sp-http';
+
+import { ITaskItem } from '../models/ITaskItem'; 
 import sample from '../sample/sampledata';
 
-
-export interface IK2WorklistItem {
-  workflowInstanceFolio: string;
-  status: string;
-  workflowName: string;
-  workflowDisplayName: string;
-  serialNumber: string;
-  activityName: string;
-  formURL: string;
-  viewFlowURL: string;
-}
-
 export interface IK2WorklistState {
-  items: IK2WorklistItem[];
-  selectedItems: IK2WorklistItem[];
+  items: ITaskItem[];
+  selectedItems: ITaskItem[];
 }
 
 export default class K2Worklist extends React.Component<IK2WorklistProps, IK2WorklistState> {
   private _selection: Selection;
-  private _allItems: IK2WorklistItem[];
+  private _allItems: ITaskItem[];
   private _columns: IColumn[];
 
   constructor (props: IK2WorklistProps){
     super(props);
+    console.log(props);
 
     this._selection = new Selection({
       onSelectionChanged: () => this.setState({ selectedItems: this._getSelectedItems() })
     });
-    this._allItems = sample.tasks;
+    this._allItems = sample.tasks as any as ITaskItem[];
 
     this._columns = [
       { 
@@ -109,4 +101,6 @@ export default class K2Worklist extends React.Component<IK2WorklistProps, IK2Wor
   private _getSelectedItems():  any {
     return this._selection.getSelection();
   }
+
+  
 }

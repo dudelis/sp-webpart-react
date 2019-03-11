@@ -20,7 +20,8 @@
     "description": { "default": "K2 Worklist" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "K2 Worklist"
+      "description": "K2 Worklist",
+      "k2url": "https://k2.denallix.com"
     }
   }]
 }

@@ -13,6 +13,8 @@ import { IK2WorklistProps } from './components/IK2WorklistProps';
 
 export interface IIK2WorklistWebPartProps {
   description: string;
+  k2url: string;
+  context: any;
 }
 
 export default class TicTacToev3WebPart extends BaseClientSideWebPart<IIK2WorklistWebPartProps> {
@@ -21,7 +23,9 @@ export default class TicTacToev3WebPart extends BaseClientSideWebPart<IIK2Workli
     const element: React.ReactElement<IK2WorklistProps > = React.createElement(
       K2Worklist,
       {
-        description: this.properties.description
+        description: this.properties.description,
+        K2Url: this.properties.k2url,
+        context: this.context
       }
     );
 
@@ -49,6 +53,9 @@ export default class TicTacToev3WebPart extends BaseClientSideWebPart<IIK2Workli
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
+                }),
+                PropertyPaneTextField('k2url', {
+                  label: strings.K2Url
                 })
               ]
             }

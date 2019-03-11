@@ -5,7 +5,13 @@
     "id": "a73846e0-d5cc-4532-a8eb-8ed0998f1c43",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true
+    "skipFeatureDeployment": true,
+    "webApiPermissionRequests": [
+      {
+        "resource": "K2 API",
+        "scope": "user_impersonation"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/sp-webpart-react.sppkg"
