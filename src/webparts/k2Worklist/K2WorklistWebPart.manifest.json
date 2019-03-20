@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "65e2b0c1-490a-4983-beae-9ab665a9cf9c",
+  "id": "367511fd-f372-4c11-96c8-b8a70d732e85",
   "alias": "K2WorklistWebPart",
   "componentType": "WebPart",
 
@@ -16,12 +16,17 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
     "group": { "default": "Other" },
-    "title": { "default": "K2 Worklist" },
-    "description": { "default": "K2 Worklist" },
+    "title": { "default": "k2-worklist" },
+    "description": { "default": "k2-worklist description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "K2 Worklist",
-      "k2url": "https://k2.denallix.com"
+      "title": "K2 Worklist",
+      "k2url": "https://k2.denallix.com",
+      "showToolbar": true,
+      "showFilter": true,
+      "showSearch": true,
+      "showOOF": true,
+      "rows": 20
     }
   }]
 }

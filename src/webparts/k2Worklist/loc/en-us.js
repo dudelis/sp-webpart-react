@@ -1,8 +1,16 @@
 define([], function() {
   return {
-    "PropertyPaneDescription": "Description",
-    "BasicGroupName": "Group Name",
+    "PropertyPaneDescription": "K2 Worklist",
+    "BasicGroupName": "Detail",
+    "TitleFieldLabel": "Title",
     "DescriptionFieldLabel": "Description Field",
-    "K2Url" : "K2 Url"
+    "K2UrlFieldLabel": "K2 Url",
+
+    "SettingsGroupName": "Settings",
+    "ShowToolbarFieldLabel": "Show Toolbar",
+    "ShowFilterFieldLabel": "Show Filter",
+    "ShowSearchFieldLabel": "Show Search",
+    "ShowOutOfOfficeFieldLabel": "Show Out of Office",
+    "RowsFieldLabel" : "Rows"
   }
 });

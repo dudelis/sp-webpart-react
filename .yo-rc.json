@@ -4,7 +4,7 @@
     "environment": "spo",
     "version": "1.7.1",
     "libraryName": "sp-webpart-react",
-    "libraryId": "a73846e0-d5cc-4532-a8eb-8ed0998f1c43",
+    "libraryId": "8793a055-4f42-478b-84df-4e7e47fe3eed",
     "packageManager": "npm",
     "componentType": "webpart"
   }

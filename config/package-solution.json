@@ -2,16 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "sp-webpart-react-client-side-solution",
-    "id": "a73846e0-d5cc-4532-a8eb-8ed0998f1c43",
+    "id": "8793a055-4f42-478b-84df-4e7e47fe3eed",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true,
-    "webApiPermissionRequests": [
-      {
-        "resource": "K2 API",
-        "scope": "user_impersonation"
-      }
-    ]
+    "skipFeatureDeployment": true
   },
   "paths": {
     "zippedPackage": "solution/sp-webpart-react.sppkg"

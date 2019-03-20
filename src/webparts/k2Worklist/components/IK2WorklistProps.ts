@@ -1,5 +1,9 @@
 export interface IK2WorklistProps {
-  description: string;
-  K2Url: string;
-  context: any;
+  title: string;
+  k2url: string;
+  showToolbar: boolean;
+  showFilter: boolean;
+  showSearch: boolean;
+  showOOF: boolean;
+  rows: number;
 }
