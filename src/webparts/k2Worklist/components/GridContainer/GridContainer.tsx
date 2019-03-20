@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface Props {
-    children?: React.ReactNode
+    children?: React.ReactNode;
 }
 
 export interface State {
@@ -10,15 +10,15 @@ export interface State {
 export default class GridContainer extends React.Component<Props, State> {
 
     constructor(props: Props) {
-        super(props)
+        super(props);
 
         this.state = {
-        }
+        };
     }
 
-    render() {
+    public render() {
         return (
             <div>{ this.props.children }</div>
-        )
+        );
     }
 }

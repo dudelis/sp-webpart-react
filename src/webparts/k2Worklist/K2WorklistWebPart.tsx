@@ -7,44 +7,60 @@ import {
   PropertyPaneTextField,
   PropertyPaneCheckbox,
   PropertyPaneSlider,
-  PropertyPaneDropdownOptionType,
-  PropertyPaneChoiceGroup,
-  PropertyPaneDynamicField,
-  PropertyPaneDropdown
 } from "@microsoft/sp-webpart-base";
 
 import * as strings from "K2WorklistWebPartStrings";
 import K2Worklist from "./components/K2Worklist";
-import { IK2WorklistProps } from "./components/IK2WorklistProps";
+import { IK2WorklistWebPartProps } from "./IK2WorklistWebPartProps";
 
-export interface IK2WorklistWebPartProps {
-  title: string;
-  k2url: string;
-  showToolbar: boolean;
-  showFilter: boolean;
-  showSearch: boolean;
-  showOOF: boolean;
-  rows: number;
-}
+//Redux items
+import { Store } from "redux";
+import { Provider } from "react-redux";
+import configureStore, { IRootState } from "./reducers/Store";
+import {
+  applyProperties,
+  setContext,
+  updateProperty
+} from "./actions/PropertyActions";
 
 export default class K2WorklistWebPart extends BaseClientSideWebPart<
   IK2WorklistWebPartProps
 > {
+  private store: Store<IRootState>;
+  //Initiate Store
+  public constructor() {
+    super();
+    this.store = configureStore();
+  }
+
   public render(): void {
-    const element: React.ReactElement<IK2WorklistProps> = React.createElement(
-      K2Worklist,
-      {
-        title: this.properties.title,
-        k2url: this.properties.k2url,
-        showToolbar: this.properties.showToolbar,
-        showFilter: this.properties.showFilter,
-        showSearch: this.properties.showSearch,
-        showOOF: this.properties.showOOF,
-        rows: this.properties.rows
-      }
+    if (this.renderedOnce) {
+      return;
+    }
+    const element = (
+      <Provider store={this.store}>
+        <K2Worklist title="hello" />
+      </Provider>
     );
 
     ReactDom.render(element, this.domElement);
+  }
+
+  //Applying the properties - beginning
+  protected onInit(): Promise<void> {
+    this.store.dispatch(applyProperties(this.properties));
+    this.store.dispatch(setContext(this.context));
+    return super.onInit();
+  }
+  //Property Changed
+  protected onPropertyChanged(propertyPath, oldValue, newValue) {
+    if (!this.disableReactivePropertyChanges) {
+      this.store.dispatch(updateProperty(propertyPath, newValue));
+    }
+  }
+  //Property pane is changed
+  protected onAfterPropertyPaneChangesApplied() {
+    this.store.dispatch(applyProperties(this.properties));
   }
 
   protected onDispose(): void {

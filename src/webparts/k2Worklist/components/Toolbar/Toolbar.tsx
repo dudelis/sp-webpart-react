@@ -24,7 +24,7 @@ export default class Toolbar extends React.Component<Props, State> {
                 items = {[]}
                 farItems={this._getFarItems()}
             />
-        )
+        );
     }
     private _getFarItems = () =>{
         return [
