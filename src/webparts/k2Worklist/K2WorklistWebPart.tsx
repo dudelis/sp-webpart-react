@@ -10,7 +10,7 @@ import {
 } from "@microsoft/sp-webpart-base";
 
 import * as strings from "K2WorklistWebPartStrings";
-import K2Worklist from "./components/K2Worklist";
+import K2WorklistContainer from "./components/K2WorklistContainer";
 import { IK2WorklistWebPartProps } from "./IK2WorklistWebPartProps";
 
 //Redux items
@@ -39,7 +39,7 @@ export default class K2WorklistWebPart extends BaseClientSideWebPart<
     }
     const element = (
       <Provider store={this.store}>
-        <K2Worklist title="hello" />
+        <K2WorklistContainer title="hello" />
       </Provider>
     );
 

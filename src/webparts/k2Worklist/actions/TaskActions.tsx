@@ -14,7 +14,7 @@ export enum TaskActionTypes {
 //Types of every action to be returned
 export interface ITaskGetTasksAction {
     type: TaskActionTypes.GET_TASKS;
-    characters: ITaskState;
+    payload: ITaskState;
   }
 
 //Combine all Actions together
@@ -22,14 +22,17 @@ export type TaskActions = ITaskGetTasksAction;
 
 //GET_TASKS
 export const getTasks: ActionCreator<ThunkAction<Promise<any>, ITaskState, null, ITaskGetTasksAction>> = () =>{
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch, getState) => {
         //do something here
-
-
+        const state = getState();
+        console.log(state);
         //dispatch the results of what was done
         dispatch({
             type: TaskActionTypes.GET_TASKS,
-            payload: {} //the object of tasks to be returned
+            payload: {
+                itemCount: 5,
+                tasks: []
+            }
         });
     };
 };

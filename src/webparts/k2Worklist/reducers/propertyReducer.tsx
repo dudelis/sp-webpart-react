@@ -35,7 +35,7 @@ export const propertyReducer: Reducer<IPropertyState, PropertyActions> = (
     case PropertyActionTypes.SET_CONTEXT:
         return {
           ...state,
-          context: action
+          context: action.context
         };
     default:
       return state;
