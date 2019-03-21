@@ -8,6 +8,7 @@ import {
   PropertyPaneCheckbox,
   PropertyPaneSlider,
 } from "@microsoft/sp-webpart-base";
+import { AadTokenProvider, AadHttpClient } from '@microsoft/sp-http'; 
 
 import * as strings from "K2WorklistWebPartStrings";
 import K2WorklistContainer from "./components/K2WorklistContainer";
@@ -49,7 +50,21 @@ export default class K2WorklistWebPart extends BaseClientSideWebPart<
   //Applying the properties - beginning
   protected onInit(): Promise<void> {
     this.store.dispatch(applyProperties(this.properties));
-    this.store.dispatch(setContext(this.context));
+    this.store.dispatch(setContext(this.context.aadHttpClientFactory));
+    this.context.aadTokenProviderFactory
+    .getTokenProvider()
+    .then((tokenProvider: AadTokenProvider): Promise<string> => {
+      // retrieve access token for the enterprise API secured with Azure AD
+      return tokenProvider.getToken('https://api.k2.com/');
+    })
+    .then((accessToken: string):void =>{
+      console.log(accessToken);
+    });
+    // const client = this.context.aadHttpClientFactory.getClient('fb9bb949-3db7-43ae-b57e-874ea95042b3').then(client => {
+    //   client.get(`https://k2.denallix.com/api/workflow/preview/tasks`, AadHttpClient.configurations.v1).then(response =>{
+    //     console.log(response);
+    //   });
+    // });
     return super.onInit();
   }
   //Property Changed

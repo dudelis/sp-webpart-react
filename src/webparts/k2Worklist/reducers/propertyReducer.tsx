@@ -2,10 +2,10 @@ import { Reducer } from "redux";
 
 import { IK2WorklistWebPartProps } from "../IK2WorklistWebPartProps";
 import { PropertyActions, PropertyActionTypes } from "../actions/PropertyActions";
-import { IWebPartContext } from "@microsoft/sp-webpart-base";
+import { AadHttpClientFactory } from '@microsoft/sp-http';
 
 export interface IPropertyState extends IK2WorklistWebPartProps{
-  context?: IWebPartContext;
+  context?: AadHttpClientFactory;
 }
 
 const initialPropertiesState: IPropertyState = {

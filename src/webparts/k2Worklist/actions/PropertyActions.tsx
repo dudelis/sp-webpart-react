@@ -1,6 +1,8 @@
-import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { IWebPartContext } from "@microsoft/sp-webpart-base";
+import { AadHttpClientFactory } from '@microsoft/sp-http';
 //Reducer types to read the state types
 import { IPropertyState } from "../reducers/propertyReducer";
+
 
 //Action types - constants
 export enum PropertyActionTypes {
@@ -22,7 +24,7 @@ export interface IPropertyUpdateAction {
 }
 export interface IPropertySetContextAction {
   type: PropertyActionTypes.SET_CONTEXT;
-  context: WebPartContext;
+  context: AadHttpClientFactory;
 }
 
 //Combine all Actions together
@@ -47,7 +49,7 @@ export const updateProperty = (propertyName: string, value: any) => {
   };
 };
 //SET_CONTEXT
-export const setContext = (context: WebPartContext) => {
+export const setContext = (context: AadHttpClientFactory) => {
   return {
     type: PropertyActionTypes.SET_CONTEXT,
     context
