@@ -11,6 +11,8 @@ export enum TaskActionTypes {
     GET_TASKS = 'GET_TASKS'
 }
 
+//DEBUG 
+import {testTasks}  from './TestJson';
 
 
 //Types of every action to be returned
@@ -27,19 +29,23 @@ export const getTasks: ActionCreator<ThunkAction<Promise<any>, IRootState, null,
     return async (dispatch: Dispatch, getState) => {
         //do something here
         const state = getState();
-        if (state.properties.context){
-            // const client = await state.properties.context.getClient('https://api.k2.com/');
-            // const tasks = await client.get(`${state.properties.k2url}/api/workflow/preview/tasks`, AadHttpClient.configurations.v1);
-            // console.log(tasks);
-        }
+        let tasks : ITaskState = {
+            itemCount: 0,
+            tasks: []
+        };
+        tasks = testTasks;
+
+        //Commented for development purposes
+        // if (state.properties.context){
+        //     const client = await state.properties.context.getClient('https://api.k2.com/');
+        //     const tasksResponse = await client.get(`${state.properties.k2url}/api/workflow/preview/tasks`, AadHttpClient.configurations.v1);
+        //     tasks = await tasksResponse.json();
+        // }
 
         //dispatch the results of what was done
         dispatch({
             type: TaskActionTypes.GET_TASKS,
-            payload: {
-                itemCount: 5,
-                tasks: []
-            }
+            payload: tasks
         });
     };
 };

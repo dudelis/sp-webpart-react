@@ -4,61 +4,44 @@ export interface IStoreState {
     controlsVisibility?: any;
 }
 
+export interface IUser{
+    username: string;
+    fqn: string;
+    email: string;
+    manager: string;
+    displayName: string;
+}
+
+export interface IActions {
+    nonBatchableActions: string[];
+    batchableActions: string[];
+    systemActions: string[];
+}
 
 export interface ITask {
-    serialNumber: string;
     status: string;
+    taskStartDate: string;
     priority: number;
+    serialNumber: string;
     formURL: string;
+    viewFlowURL: string;
+    workflowID: number;
+    workflowName: string;
+    workflowDisplayName: string;
+    workflowCategory: string;
+    workflowInstanceID: number;
+    workflowInstanceFolio: string;
+    activityInstanceID: number;
+    activityInstanceDestinationID: number;
+    activityName: string;
+    eventName: string;
+    eventDescription: string;
+    originator: IUser;
+    actions: IActions;
+    instruction: string;
 }
 
 export interface ITaskResponse{
     itemCount: number;
     tasks: ITask[];
 }
-
-
-// {
-//     "itemCount": 0,
-//     "tasks": [
-//       {
-//         "serialNumber": "string",
-//         "status": "Completed",
-//         "taskStartDate": "2019-03-20T15:46:41.633Z",
-//         "sleepUntil": "2019-03-20T15:46:41.633Z",
-//         "priority": 0,
-//         "formURL": "string",
-//         "viewFlowURL": "string",
-//         "workflowID": 0,
-//         "workflowName": "string",
-//         "workflowDisplayName": "string",
-//         "workflowCategory": "string",
-//         "workflowInstanceID": 0,
-//         "workflowInstanceFolio": "string",
-//         "activityInstanceID": 0,
-//         "activityInstanceDestinationID": 0,
-//         "activityName": "string",
-//         "eventName": "string",
-//         "eventDescription": "string",
-//         "originator": {
-//           "username": "string",
-//           "fqn": "string",
-//           "email": "string",
-//           "manager": "string",
-//           "displayName": "string"
-//         },
-//         "actions": {
-//           "nonBatchableActions": [
-//             "string"
-//           ],
-//           "batchableActions": [
-//             "string"
-//           ],
-//           "systemActions": [
-//             "string"
-//           ]
-//         },
-//         "instruction": "string"
-//       }
-//     ]
-//   }
