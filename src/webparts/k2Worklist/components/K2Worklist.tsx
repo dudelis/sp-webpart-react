@@ -1,19 +1,16 @@
-import * as React from 'react';
-import styles from './K2Worklist.module.scss';
-import { IK2WorklistProps } from './IK2WorklistProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+import * as React from "react";
+import styles from "./K2Worklist.module.scss";
 
-import ToolbarContainer from './Toolbar';
+import ToolbarContainer from "./Toolbar";
+import TaskGridContainer from './TaskGrid';
 
-export default class K2Worklist extends React.Component<IK2WorklistProps, {}> {
-  public render(): React.ReactElement<IK2WorklistProps> {
-    return (
-      <div className={ styles.k2Worklist }>
-        <div className={ styles.container }>
-          <ToolbarContainer />
-        </div>
+export const K2Worklist = (): JSX.Element => {
+  return (
+    <div className={styles.k2Worklist}>
+      <div className={styles.container}>
+        <ToolbarContainer />
+        <TaskGridContainer />
       </div>
-    );
-  }
-}
-
+    </div>
+  );
+};

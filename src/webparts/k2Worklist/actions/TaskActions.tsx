@@ -2,9 +2,11 @@ import { ActionCreator, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { AadHttpClient, HttpClientResponse } from '@microsoft/sp-http';
 
+
 //Reducer types to read the state types
 import { ITaskState } from '../reducers/tasksReducer';
 import { IRootState } from '../reducers/Store';
+import { ITaskResponse } from '../types';
 
 //Action types - constants
 export enum TaskActionTypes {
@@ -24,9 +26,10 @@ export interface ITaskGetTasksAction {
 //Combine all Actions together
 export type TaskActions = ITaskGetTasksAction;
 
-//GET_TASKS
-export const getTasks: ActionCreator<ThunkAction<Promise<any>, IRootState, null, ITaskGetTasksAction>> = () =>{
-    return async (dispatch: Dispatch, getState) => {
+
+//: ActionCreator<ThunkAction<Promise<any>, ITaskState, null, ITaskGetTasksAction>>
+export const getTasks : ActionCreator<ThunkAction<Promise<ITaskGetTasksAction>, IRootState, null, ITaskGetTasksAction>> = () => {
+    return async (dispatch: Dispatch<ITaskGetTasksAction>, getState):Promise<ITaskGetTasksAction> => {
         //do something here
         const state = getState();
         let tasks : ITaskState = {
@@ -34,7 +37,7 @@ export const getTasks: ActionCreator<ThunkAction<Promise<any>, IRootState, null,
             tasks: []
         };
         tasks = testTasks;
-
+        console.log('getTasks was called');
         //Commented for development purposes
         // if (state.properties.context){
         //     const client = await state.properties.context.getClient('https://api.k2.com/');
@@ -42,8 +45,8 @@ export const getTasks: ActionCreator<ThunkAction<Promise<any>, IRootState, null,
         //     tasks = await tasksResponse.json();
         // }
 
-        //dispatch the results of what was done
-        dispatch({
+        //return dispatch the results of what was done
+        return dispatch({
             type: TaskActionTypes.GET_TASKS,
             payload: tasks
         });

@@ -1,7 +1,7 @@
 import { ITaskResponse } from "../../types";
 
 export const testTasks: ITaskResponse = {
-  itemCount: 8,
+  itemCount: 17,
   tasks: [
     {
       serialNumber: "1_48",

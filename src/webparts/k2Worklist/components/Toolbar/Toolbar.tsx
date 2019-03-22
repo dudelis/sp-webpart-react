@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/CommandBar';
 import { CommandBarButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { IConnectedProps } from './ToolbarContainer';
 
@@ -10,10 +10,11 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
             this.props.webpartProps.showToolbar && <CommandBar items = {[]} farItems={this._getFarItems()}/>
         );
     }
-    private _getFarItems = () =>{
-        let buttons = [];
-
-        if (this.props.webpartProps.showOOF){
+    private _getFarItems = () : ICommandBarItemProps[] =>{
+        let buttons : ICommandBarItemProps[] = [];
+        const {webpartProps} = this.props;
+        const getTasks = this.props.getTasks as any;
+        if (webpartProps.showOOF){
           buttons.push({
             key: 'oof',
             name: 'Out of Office',
@@ -25,7 +26,7 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
             onClick: () => console.log('OOF')
           });
         }
-        if (this.props.webpartProps.showSearch){
+        if (webpartProps.showSearch){
           buttons.push({
             key: 'search',
             name: 'Search',
@@ -37,7 +38,7 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
             onClick: () => console.log('Search')
           });
         }
-        if (this.props.webpartProps.showFilter){
+        if (webpartProps.showFilter){
           buttons.push({
             key: 'filter',
             name: 'Filter',
@@ -49,6 +50,19 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
             onClick: () => console.log('Filter')
           });
         }
+        buttons.push(
+          {
+            key: 'refresh',
+            name: 'Refresh',
+            ariaLabel: 'Refresh',
+            iconProps: {
+              iconName: 'Refresh'
+            },
+            iconOnly: true,
+            onClick: getTasks
+          }
+        );
+
         return buttons;
     }
 }

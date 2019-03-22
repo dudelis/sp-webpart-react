@@ -6,7 +6,7 @@ import { IRootState } from "../reducers/Store";
 import { IPropertyState } from "../reducers/propertyReducer";
 import { getTasks } from "../actions/TaskActions";
 
-import K2Worklist from "./K2Worklist";
+import { K2Worklist } from "./K2Worklist";
 
 // Everything needed for redux connect method
 interface IConnectedState {
@@ -20,27 +20,14 @@ interface IConnectedDispatch {
 const mapStateToProps = (state: IRootState) => ({
   properties: state.properties
 });
-const mapDispatchToProps = (dispatch): IConnectedDispatch => {
-  return {
-    getTasks: () => {
-      return dispatch(getTasks());
-    }
-  };
+
+const K2WorklistContainer = () : JSX.Element =>{
+  return (
+    <K2Worklist />
+  );
 };
 
-class K2WorklistContainer extends React.Component<
-  IConnectedState & IConnectedDispatch,
-  any
-> {
-  public componentDidMount() {
-    this.props.getTasks();
-  }
 
-  public render() {
-    return <K2Worklist />;
-  }
-}
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(K2WorklistContainer);

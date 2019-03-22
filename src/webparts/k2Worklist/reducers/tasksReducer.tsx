@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 
 import { ITaskResponse } from "../types";
-import { TaskActionTypes } from "../actions/TaskActions";
+import { TaskActions, TaskActionTypes } from "../actions/TaskActions";
 
 export interface ITaskState extends ITaskResponse {}
 
@@ -10,7 +10,7 @@ const initialTaskState: ITaskState = {
   tasks: []
 };
 
-export const taskReducer: Reducer<ITaskState, any> = (
+export const taskReducer: Reducer<ITaskState, TaskActions> = (
   state = initialTaskState,
   action
 ) => {
@@ -18,7 +18,7 @@ export const taskReducer: Reducer<ITaskState, any> = (
     case TaskActionTypes.GET_TASKS:
       return {
         ...state,
-        ...action
+        ...(action.payload)
       };
     default:
       return state;
