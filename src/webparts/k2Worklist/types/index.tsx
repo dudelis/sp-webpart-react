@@ -44,4 +44,7 @@ export interface ITask {
 export interface ITaskState{
     itemCount: number;
     tasks: ITask[];
+    totalPages: number;
+    currentPage: number;
+    currentPageTasks: ITask[];
 }

@@ -1,6 +1,4 @@
-import { ITaskState } from "../../types";
-
-export const testTasks: ITaskState = {
+export const testTasks = {
   itemCount: 17,
   tasks: [
     {

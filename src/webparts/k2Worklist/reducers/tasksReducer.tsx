@@ -5,7 +5,10 @@ import { TaskActions, TaskActionTypes } from "../actions/TaskActions";
 
 const initialTaskState: ITaskState = {
   itemCount: 0,
-  tasks: []
+  tasks: [],
+  totalPages: 1,
+  currentPage: 1,
+  currentPageTasks: []
 };
 
 export const taskReducer: Reducer<ITaskState, TaskActions> = (
@@ -18,6 +21,11 @@ export const taskReducer: Reducer<ITaskState, TaskActions> = (
         ...state,
         ...(action.payload)
       };
+    case TaskActionTypes.SET_PAGE:
+    return {
+      ...state,
+      ...(action.payload)
+    };
     default:
       return state;
   }
