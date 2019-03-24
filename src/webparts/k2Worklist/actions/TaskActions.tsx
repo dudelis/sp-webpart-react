@@ -55,7 +55,7 @@ export const getTasks: ActionCreator<
     //Calculate pages etc if rows > 0
     let totalPages = 1;
     let currentPageTasks = state.tasks.tasks;
-    
+
     if (rows > 0) {
       console.log(rows);
       totalPages = Math.ceil(testTasks.tasks.length / rows);
@@ -69,7 +69,7 @@ export const getTasks: ActionCreator<
         itemCount: testTasks.itemCount,
         tasks: testTasks.tasks,
         currentPageTasks,
-        totalPages: (totalPages > 1) ? totalPages : 1
+        totalPages: totalPages > 1 ? totalPages : 1
       }
     });
   };
@@ -86,11 +86,7 @@ export const setPage: ActionCreator<
     let currentPage = pageNumber ? pageNumber : state.tasks.currentPage;
     const startIndex = (currentPage - 1) * state.properties.rows;
     const endIndex = startIndex + state.properties.rows + 1;
-    let currentPageTasks = _.slice(
-      state.tasks.tasks,
-      startIndex,
-      endIndex
-    );
+    let currentPageTasks = _.slice(state.tasks.tasks, startIndex, endIndex);
     debugger;
     return dispatch({
       type: TaskActionTypes.SET_PAGE,

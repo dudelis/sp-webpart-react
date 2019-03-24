@@ -13,7 +13,7 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
     private _getFarItems = () : ICommandBarItemProps[] =>{
         let buttons : ICommandBarItemProps[] = [];
         const {webpartProps} = this.props;
-        const getTasks = this.props.getTasks as any;
+        const refresh = this.props.refresh as any;
         if (webpartProps.showOOF){
           buttons.push({
             key: 'oof',
@@ -59,7 +59,7 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
               iconName: 'Refresh'
             },
             iconOnly: true,
-            onClick: getTasks
+            onClick: refresh
           }
         );
 

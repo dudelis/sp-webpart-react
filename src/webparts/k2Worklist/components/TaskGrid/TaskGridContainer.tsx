@@ -29,6 +29,15 @@ const mapStateToProps = (state: IRootState) => {
   };
 };
 
+const mapDispatchToProps = dispatch => ({
+  refresh: () => {
+    dispatch(getTasks());
+    dispatch(setPage());
+  },
+  getTasks: () => dispatch(getTasks()),
+  setPage: (pageNum?: number) => dispatch(setPage(pageNum))
+});
+
 const initialProps: IConnectedState & IConnectedActions = {
   tasks: [],
   rows: 0,
@@ -48,7 +57,6 @@ class TaskGridContainer extends React.Component<
 
   public componentWillMount() {
     this.props.getTasks();
-    this.props.setPage();
   }
 
   public render(): JSX.Element {
@@ -69,5 +77,5 @@ class TaskGridContainer extends React.Component<
 
 export default connect(
   mapStateToProps,
-  {getTasks, setPage}
+  mapDispatchToProps
 )(TaskGridContainer);
