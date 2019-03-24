@@ -17,7 +17,7 @@ import { IK2WorklistWebPartProps } from "./IK2WorklistWebPartProps";
 //Redux items
 import { Store } from "redux";
 import { Provider } from "react-redux";
-import configureStore, { IRootState } from "./reducers/Store";
+import configureStore, { IRootState } from "./store";
 import {
   applyProperties,
   setContext,

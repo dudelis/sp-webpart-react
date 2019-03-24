@@ -4,9 +4,8 @@ import { AadHttpClient, HttpClientResponse } from '@microsoft/sp-http';
 
 
 //Reducer types to read the state types
-import { ITaskState } from '../reducers/tasksReducer';
-import { IRootState } from '../reducers/Store';
-import { ITaskResponse } from '../types';
+import { IRootState } from '../store';
+import { ITaskState } from '../types';
 
 //Action types - constants
 export enum TaskActionTypes {

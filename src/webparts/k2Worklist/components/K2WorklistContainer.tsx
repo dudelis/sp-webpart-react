@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 // Import the store function and state
-import { IRootState } from "../reducers/Store";
+import { IRootState } from "../store";
 import { IPropertyState } from "../reducers/propertyReducer";
 import { getTasks } from "../actions/TaskActions";
 

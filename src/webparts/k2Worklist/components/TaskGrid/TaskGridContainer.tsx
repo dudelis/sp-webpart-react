@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import TaskGrid from "./TaskGrid";
 
 // Import the store function and state
-import { IRootState } from "../../reducers/Store";
+import { IRootState } from "../../store";
 import { IPropertyState } from "../../reducers/propertyReducer";
-import { ITaskState } from "../../reducers/tasksReducer";
-import { ITask } from '../../types';
+import { ITask, ITaskState } from '../../types';
 import { getTasks } from "../../actions/TaskActions";
 
 export interface IConnectedState {
@@ -41,8 +40,7 @@ class TaskGridContainer extends React.Component<IConnectedState & IConnectedActi
   }
 
   public render(): JSX.Element {
-    return (
-    
+    return (    
     <TaskGrid tasks={this.props.tasks} rows={this.props.rows} />);
   }
 }

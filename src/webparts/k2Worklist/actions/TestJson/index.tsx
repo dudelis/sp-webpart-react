@@ -1,6 +1,6 @@
-import { ITaskResponse } from "../../types";
+import { ITaskState } from "../../types";
 
-export const testTasks: ITaskResponse = {
+export const testTasks: ITaskState = {
   itemCount: 17,
   tasks: [
     {

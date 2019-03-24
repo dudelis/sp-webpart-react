@@ -1,9 +1,7 @@
 import { Reducer } from "redux";
 
-import { ITaskResponse } from "../types";
+import { ITaskState } from "../types";
 import { TaskActions, TaskActionTypes } from "../actions/TaskActions";
-
-export interface ITaskState extends ITaskResponse {}
 
 const initialTaskState: ITaskState = {
   itemCount: 0,

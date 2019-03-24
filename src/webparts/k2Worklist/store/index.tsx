@@ -10,7 +10,8 @@ Redux Thunk middleware allows you to write action creators that return a functio
 */
 import thunk from "redux-thunk";
 // Import reducers and state type
-import { taskReducer, ITaskState } from "../reducers/tasksReducer";
+import { taskReducer} from "../reducers/tasksReducer";
+import { ITaskState } from "../types";
 import { propertyReducer, IPropertyState } from '../reducers/propertyReducer';
 
 // Create an interface for the application state

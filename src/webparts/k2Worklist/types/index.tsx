@@ -41,7 +41,7 @@ export interface ITask {
     instruction: string;
 }
 
-export interface ITaskResponse{
+export interface ITaskState{
     itemCount: number;
     tasks: ITask[];
 }
