@@ -8,7 +8,9 @@ const initialTaskState: ITaskState = {
   tasks: [],
   totalPages: 1,
   currentPage: 1,
-  currentPageTasks: []
+  currentPageTasks: [],
+  showSearchbox: false,
+  searchString: null
 };
 
 export const taskReducer: Reducer<ITaskState, TaskActions> = (

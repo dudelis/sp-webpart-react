@@ -10,7 +10,8 @@ import { ITaskState } from "../types";
 //Action types - constants
 export enum TaskActionTypes {
   GET_TASKS = "GET_TASKS",
-  SET_PAGE = "SET_PAGE"
+  SET_PAGE = "SET_PAGE",
+  SET_FILTER = "SET_FILTER"
 }
 
 //DEBUG
@@ -25,9 +26,16 @@ export interface ITaskSetPageAction {
   type: TaskActionTypes.SET_PAGE;
   payload: any;
 }
+export interface ITaskSetFilterAction {
+  type: TaskActionTypes.SET_FILTER;
+  payload: any;
+}
 
 //Combine all Actions together
-export type TaskActions = ITaskGetTasksAction | ITaskSetPageAction;
+export type TaskActions =
+  | ITaskGetTasksAction
+  | ITaskSetPageAction
+  | ITaskSetFilterAction;
 
 //: ActionCreator<ThunkAction<Promise<any>, ITaskState, null, ITaskGetTasksAction>>
 export const getTasks: ActionCreator<
@@ -42,6 +50,10 @@ export const getTasks: ActionCreator<
     dispatch: Dispatch<ITaskGetTasksAction>,
     getState
   ): Promise<ITaskGetTasksAction> => {
+    //1. Getting the tasks
+    //2. Calculating paging
+    //3. Showing filter
+
     //do something here
     const state = getState();
     const rows = state.properties.rows;
@@ -93,6 +105,30 @@ export const setPage: ActionCreator<
       payload: {
         currentPage,
         currentPageTasks
+      }
+    });
+  };
+};
+//1. 
+export const setFilter: ActionCreator<
+ThunkAction<Promise<TaskActions>, IRootState, null, TaskActions>> = (searchString: string) => {
+  return async (
+    dispatch: Dispatch<TaskActions>,
+    getState
+  ): Promise<TaskActions> => {
+    const state = getState();
+    const searchedItems = state.tasks.tasks.filter(item =>{
+      return item.activityName.toLowerCase().indexOf(searchString.toLowerCase()) >=-1 ||
+      item.workflowInstanceFolio.toLowerCase().indexOf(searchString.toLowerCase()) >=-1 ||
+      item.workflowDisplayName.toLowerCase().indexOf(searchString.toLowerCase()) >= -1;
+    })
+    
+
+    return dispatch({
+      type: TaskActionTypes.SET_FILTER,
+      payload: {
+        searchString,
+        currentPageTasks: searchedItems
       }
     });
   };

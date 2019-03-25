@@ -47,4 +47,6 @@ export interface ITaskState{
     totalPages: number;
     currentPage: number;
     currentPageTasks: ITask[];
+    showSearchbox: boolean;
+    searchString?: string;
 }
