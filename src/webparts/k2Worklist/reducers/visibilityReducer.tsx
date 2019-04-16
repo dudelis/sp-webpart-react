@@ -1,11 +1,10 @@
 import { Reducer } from "redux";
 
-import { IVisibilityState } from "../types";
-import { VisibilityActions, VisibilityActionTypes } from "../actions/VisibilityActions";
+import { VisibilityActions, VisibilityActionTypes, IVisibilityState } from "../actions/VisibilityActions";
 
 const initialVisibilityState: IVisibilityState = {
   searchString: null,
-  showSearchToolbar: false
+  showSearchBox: false
 };
 
 export const visibilityReducer: Reducer<IVisibilityState, VisibilityActions> = (
@@ -18,6 +17,13 @@ export const visibilityReducer: Reducer<IVisibilityState, VisibilityActions> = (
         ...state,
         searchString: action.searchString
       };
+    case VisibilityActionTypes.TOGGLE_SEARCH_TOOLBAR:
+      const showSearchBox = !state.showSearchBox;
+      return {
+        ...state,
+        searchString: null,
+        showSearchBox
+      }
     default:
       return state;
   }

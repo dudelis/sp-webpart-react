@@ -45,8 +45,3 @@ export interface ITaskState{
     itemCount: number;
     tasks: ITask[];
 }
-
-export interface IVisibilityState{
-    searchString: string;
-    showSearchToolbar: boolean;
-}

@@ -12,8 +12,9 @@ import thunk from "redux-thunk";
 // Import reducers and state type
 import { taskReducer} from "../reducers/tasksReducer";
 import { visibilityReducer } from "../reducers/visibilityReducer";
-import { ITaskState, IVisibilityState } from "../types";
+import { ITaskState } from "../types";
 import { propertyReducer, IPropertyState } from '../reducers/propertyReducer';
+import { IVisibilityState } from '../actions/VisibilityActions';
 
 // Create an interface for the application state
 export interface IRootState {

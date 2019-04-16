@@ -5,59 +5,69 @@ import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 // Import the store function and state
 import { IRootState } from "../../store";
 import { IPropertyState } from "../../reducers/propertyReducer";
-import { getTasks, setFilter } from "../../actions/TaskActions";
+
+import { setSearchString, toggleSearchToolbar } from "../../actions/VisibilityActions";
+import { getTasks } from '../../actions/TaskActions';
 
 import Toolbar from "./Toolbar";
 
-export type IConnectedState = {
+export type IConnectedReduxState = {
   webpartProps: IPropertyState;
+  searchString: string;
+  showSearchBox: boolean;
 };
-export type IConnectedActions = {
+export type IConnectedReduxActions = {
+  setSearchString: (searchString: string) => void;
   getTasks: () => void;
-  refresh: () => void;
-  setFilter: (value?: string) => void;
-  setPage: (page?: number, searchString?: string) => void;
+  toggleSearchToolbar: () => void;
 };
 
 export type Props = {
   children?: React.ReactNode;
-  searchString?: string;
 };
 
-export type IConnectedProps = IConnectedState & IConnectedActions & Props;
+export type IComponentProps = IConnectedReduxState & IConnectedReduxActions & Props;
 
 const mapStateToProps = (state: IRootState) => ({
-  webpartProps: state.properties
+  webpartProps: state.properties,
+  searchString: state.visibility.searchString,
+  showSearchBox: state.visibility.showSearchBox
 });
 const mapDispatchToProps = dispatch => {
   return {
-    refresh: () => {
-      dispatch(getTasks());
-    },
+    setSearchString: (searchString: string) => dispatch(setSearchString(searchString)),
     getTasks: () => dispatch(getTasks()),
-    setFilter: (value?: string) => dispatch(setFilter(value))
+    toggleSearchToolbar: () => dispatch(toggleSearchToolbar())
   };
 };
 
-class ToolbarGrid extends React.Component<IConnectedProps, any> {
-  constructor(props: IConnectedProps) {
+class ToolbarGrid extends React.Component<IComponentProps, any> {
+  constructor(props: IComponentProps) {
     super(props);
   }
 
   private _onSeachBoxChange = (value: string) =>{
     console.log('Searchbox called');
-    this.props.setPage(1, value);
+    this.props.setSearchString(value);
   }
 
   public render() {
     return (
       <React.Fragment>
-        {this.props.webpartProps.showToolbar && <Toolbar {...this.props} />}
-        <SearchBox
-          onSearch={newValue => this._onSeachBoxChange(newValue)}
-        />
+        {this.props.webpartProps.showToolbar && <Toolbar webpartProps={this.props.webpartProps} refresh={this._refresh} toggleSearchToolbar={this.props.toggleSearchToolbar} />}
+        {this.props.showSearchBox &&
+          <SearchBox
+            onChange={newValue => this._onSeachBoxChange(newValue)}
+            value= {this.props.searchString}
+          />
+        }
       </React.Fragment>
     );
+  }
+
+  private _refresh = () => {
+    this.props.setSearchString('');
+    this.props.getTasks();
   }
 }
 

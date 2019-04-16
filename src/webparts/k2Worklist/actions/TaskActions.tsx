@@ -22,20 +22,10 @@ export interface ITaskGetTasksAction {
   type: TaskActionTypes.GET_TASKS;
   payload: any;
 }
-export interface ITaskSetPageAction {
-  type: TaskActionTypes.SET_PAGE;
-  payload: any;
-}
-export interface ITaskSetFilterAction {
-  type: TaskActionTypes.SET_FILTER;
-  payload: any;
-}
 
 //Combine all Actions together
 export type TaskActions =
-  | ITaskGetTasksAction
-  | ITaskSetPageAction
-  | ITaskSetFilterAction;
+  | ITaskGetTasksAction;
 
 //: ActionCreator<ThunkAction<Promise<any>, ITaskState, null, ITaskGetTasksAction>>
 export const getTasks: ActionCreator<
@@ -67,64 +57,6 @@ export const getTasks: ActionCreator<
       payload: {
         itemCount: testTasks.itemCount,
         tasks: testTasks.tasks
-      }
-    });
-  };
-};
-
-// export const setPage: ActionCreator<
-//   ThunkAction<Promise<ITaskSetPageAction>, IRootState, null, ITaskSetPageAction>
-// > = (pageNumber?: number, searchString?: string) => {
-//   return async (
-//     dispatch: Dispatch<ITaskSetPageAction>,
-//     getState
-//   ): Promise<ITaskSetPageAction> => {
-//     const state = getState();
-//     let tasks = [];
-//     if (searchString){
-//       tasks = state.tasks.tasks.filter(item =>{
-//         return item.activityName.toLowerCase().indexOf(searchString.toLowerCase()) >-1 ||
-//         item.workflowInstanceFolio.toLowerCase().indexOf(searchString.toLowerCase()) >-1 ||
-//         item.workflowDisplayName.toLowerCase().indexOf(searchString.toLowerCase()) >-1;
-//       });
-//     } else{
-//       tasks = state.tasks.tasks;
-//     }
-//     let currentPage = pageNumber ? pageNumber : state.tasks.currentPage;
-//     const startIndex = (currentPage - 1) * state.properties.rows;
-//     const endIndex = startIndex + state.properties.rows + 1;
-//     let currentPageTasks = _.slice(tasks, startIndex, endIndex);
-//     debugger;
-//     return dispatch({
-//       type: TaskActionTypes.SET_PAGE,
-//       payload: {
-//         currentPage,
-//         searchString,
-//         currentPageTasks
-//       }
-//     });
-//   };
-// };
-//1. 
-export const setFilter: ActionCreator<ThunkAction<Promise<TaskActions>, IRootState, null, TaskActions>> = (searchString?: string) => {
-  return async (
-    dispatch: Dispatch<TaskActions>,
-    getState
-  ): Promise<TaskActions> => {
-    const state = getState();
-    const searchedItems = state.tasks.tasks.filter(item =>{
-      return item.activityName.toLowerCase().indexOf(searchString.toLowerCase()) >-1 ||
-      item.workflowInstanceFolio.toLowerCase().indexOf(searchString.toLowerCase()) >-1 ||
-      item.workflowDisplayName.toLowerCase().indexOf(searchString.toLowerCase()) >-1;
-    });
-    console.log(searchedItems);
-    
-
-    return dispatch({
-      type: TaskActionTypes.SET_FILTER,
-      payload: {
-        searchString,
-        currentPageTasks: searchedItems
       }
     });
   };

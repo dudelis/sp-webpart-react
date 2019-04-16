@@ -7,7 +7,8 @@ import TaskGrid from "./TaskGrid";
 
 // Import the store function and state
 import { IRootState } from "../../store";
-import { ITask, IVisibilityState } from "../../types";
+import { ITask } from "../../types";
+import { IVisibilityState } from '../../actions/VisibilityActions';
 
 export interface IProps {
   children?: React.ReactNode;
@@ -48,10 +49,12 @@ class TaskGridContainer extends React.Component<IComponentProps, IComponentState
     const rows = this.props.rows;
     const searchedTasks = this._filterTasks(this.props.tasks, this.props.visibility.searchString);
     let totalPages = rows > 0 ? Math.ceil(searchedTasks.length / rows) : 1;
+    totalPages = totalPages === 0 ? 1 : totalPages;
     const startIndex = (this.state.currentPage - 1) * this.props.rows;
     const endIndex = startIndex + this.props.rows + 1;
     const tasks = _.slice(searchedTasks, startIndex, endIndex);
     //checking if the tasks array changed
+    debugger;
     if (!_.isEqual(_.sortBy(this.state.tasks), _.sortBy(tasks))){
       this.setState({
         tasks,
@@ -81,12 +84,12 @@ class TaskGridContainer extends React.Component<IComponentProps, IComponentState
     let filteredTasks = [];
     if (searchString){
       filteredTasks = tasks.filter(item =>{
-        return item.activityName.toLowerCase().indexOf(searchString.toLowerCase()) >=-1 ||
-        item.workflowInstanceFolio.toLowerCase().indexOf(searchString.toLowerCase()) >=-1 ||
-        item.workflowDisplayName.toLowerCase().indexOf(searchString.toLowerCase()) >= -1;
+        return item.activityName.toLowerCase().indexOf(searchString.toLowerCase()) > -1 ||
+        item.workflowInstanceFolio.toLowerCase().indexOf(searchString.toLowerCase()) > -1 ||
+        item.workflowDisplayName.toLowerCase().indexOf(searchString.toLowerCase()) > -1;
       });
     } else {
-      filteredTasks = this.props.tasks;
+      filteredTasks = tasks;
     }
     return filteredTasks;
   }

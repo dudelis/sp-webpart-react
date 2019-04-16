@@ -1,9 +1,16 @@
 import * as React from "react";
 import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/CommandBar';
 import { CommandBarButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
-import { IConnectedProps } from './ToolbarContainer';
 
-export default class Toolbar extends React.Component<IConnectedProps, any> {
+import { IPropertyState } from '../../reducers/propertyReducer';
+
+export interface IProps{
+  refresh: () => void;
+  webpartProps: IPropertyState;
+  toggleSearchToolbar: () => void;
+}
+
+export default class Toolbar extends React.Component<IProps, any> {
 
     public render(): JSX.Element {
         return (
@@ -35,7 +42,7 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
               iconName: 'Search'
             },
             iconOnly: true,
-            onClick: () => console.log('Search')
+            onClick: this.props.toggleSearchToolbar
           });
         }
         if (webpartProps.showFilter){
