@@ -13,7 +13,6 @@ import { ITask } from "../../types";
 export interface Props {
   children?: React.ReactNode;
   tasks: ITask[];
-  rows?: number;
 }
 
 export interface State {}

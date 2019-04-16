@@ -1,81 +1,99 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import Pagination from "office-ui-fabric-react-pagination";
+import * as _ from "lodash";
 
 import TaskGrid from "./TaskGrid";
 
 // Import the store function and state
 import { IRootState } from "../../store";
-import { ITask } from "../../types";
-import { getTasks, setPage } from "../../actions/TaskActions";
+import { ITask, IVisibilityState } from "../../types";
 
-export interface IConnectedState {
+export interface IProps {
+  children?: React.ReactNode;
+  filteredTasks: ITask[];
+}
+export interface IConnectedProps {
   tasks: ITask[];
   rows: number;
+  visibility: IVisibilityState;
+}
+export interface IComponentState {
+  tasks: ITask[];
   totalPages: number;
   currentPage: number;
-}
-export interface IConnectedActions {
-  getTasks: () => void;
-  setPage: (n?: number) => void;
 }
 
 const mapStateToProps = (state: IRootState) => {
   return {
-    tasks: state.tasks.currentPageTasks,
     rows: state.properties.rows,
-    totalPages: state.tasks.totalPages,
-    currentPage: state.tasks.currentPage
+    tasks: state.tasks.tasks,
+    visibility: state.visibility
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  refresh: () => {
-    dispatch(getTasks());
-    dispatch(setPage());
-  },
-  getTasks: () => dispatch(getTasks()),
-  setPage: (pageNum?: number) => dispatch(setPage(pageNum))
-});
+export type IComponentProps = IConnectedProps & IProps;
 
-const initialProps: IConnectedState & IConnectedActions = {
-  tasks: [],
-  rows: 0,
-  totalPages: 1,
-  currentPage: 1,
-  setPage: null,
-  getTasks: null
-};
-
-class TaskGridContainer extends React.Component<
-  IConnectedState & IConnectedActions,
-  any
-> {
-  constructor(props = initialProps) {
+class TaskGridContainer extends React.Component<IComponentProps, IComponentState> {
+  constructor(props) {
     super(props);
+    this.state = {
+      tasks: [],
+      totalPages: 1,
+      currentPage: 1
+    };
   }
 
-  public componentWillMount() {
-    this.props.getTasks();
+  public componentDidUpdate(){
+    const rows = this.props.rows;
+    const searchedTasks = this._filterTasks(this.props.tasks, this.props.visibility.searchString);
+    let totalPages = rows > 0 ? Math.ceil(searchedTasks.length / rows) : 1;
+    const startIndex = (this.state.currentPage - 1) * this.props.rows;
+    const endIndex = startIndex + this.props.rows + 1;
+    const tasks = _.slice(searchedTasks, startIndex, endIndex);
+    //checking if the tasks array changed
+    if (!_.isEqual(_.sortBy(this.state.tasks), _.sortBy(tasks))){
+      this.setState({
+        tasks,
+        totalPages
+      });
+    }    
   }
 
   public render(): JSX.Element {
     return (
       <React.Fragment>
-        <TaskGrid tasks={this.props.tasks} rows={this.props.rows} />
+        <TaskGrid tasks={this.state.tasks} />
         <Pagination
-          currentPage={this.props.currentPage}
-          totalPages={this.props.totalPages}
-          onChange={page => {
-            this.props.setPage(page as number);
-          }}
+          currentPage={this.state.currentPage}
+          totalPages={this.state.totalPages}
+          onChange={page => this._setPageNumber(page)}
         />
       </React.Fragment>
     );
   }
+
+  private _setPageNumber(page: number){
+    this.setState({currentPage: page});
+  }
+
+  private _filterTasks(tasks: ITask[], searchString?: string){
+    let filteredTasks = [];
+    if (searchString){
+      filteredTasks = tasks.filter(item =>{
+        return item.activityName.toLowerCase().indexOf(searchString.toLowerCase()) >=-1 ||
+        item.workflowInstanceFolio.toLowerCase().indexOf(searchString.toLowerCase()) >=-1 ||
+        item.workflowDisplayName.toLowerCase().indexOf(searchString.toLowerCase()) >= -1;
+      });
+    } else {
+      filteredTasks = this.props.tasks;
+    }
+    return filteredTasks;
+  }
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(TaskGridContainer);
+
+

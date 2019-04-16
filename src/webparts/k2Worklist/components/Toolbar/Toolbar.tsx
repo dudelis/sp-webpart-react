@@ -7,7 +7,7 @@ export default class Toolbar extends React.Component<IConnectedProps, any> {
 
     public render(): JSX.Element {
         return (
-            this.props.webpartProps.showToolbar && <CommandBar items = {[]} farItems={this._getFarItems()}/>
+            <CommandBar items = {[]} farItems={this._getFarItems()}/>
         );
     }
     private _getFarItems = () : ICommandBarItemProps[] =>{

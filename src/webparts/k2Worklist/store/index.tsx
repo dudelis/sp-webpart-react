@@ -11,19 +11,22 @@ Redux Thunk middleware allows you to write action creators that return a functio
 import thunk from "redux-thunk";
 // Import reducers and state type
 import { taskReducer} from "../reducers/tasksReducer";
-import { ITaskState } from "../types";
+import { visibilityReducer } from "../reducers/visibilityReducer";
+import { ITaskState, IVisibilityState } from "../types";
 import { propertyReducer, IPropertyState } from '../reducers/propertyReducer';
 
 // Create an interface for the application state
 export interface IRootState {
   tasks: ITaskState;
   properties: IPropertyState;
+  visibility: IVisibilityState;
 }
 
 // Create the root reducer
 const rootReducer = combineReducers<IRootState>({
   tasks: taskReducer,
-  properties: propertyReducer
+  properties: propertyReducer,
+  visibility: visibilityReducer
 });
 const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
 
